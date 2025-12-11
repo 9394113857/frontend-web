@@ -1,0 +1,9 @@
+<div class="auth-box">
+  <h2>Login</h2>
+
+  <input name="email" placeholder="Email" [(ngModel)]="form.email" />
+  <input name="password" type="password" placeholder="Password" [(ngModel)]="form.password" />
+
+  <button (click)="login()">Login</button>
+  <a routerLink="/register">Create new account</a>
+</div>

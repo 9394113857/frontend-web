@@ -1,0 +1,10 @@
+✔ Angular Material UI
+✔ Better form validation
+✔ Password strength meter
+✔ Loading spinner
+✔ Toast notifications
+✔ Disable button until form valid
+✔ Reusable form components
+
+
+Add Angular navbar based on login status

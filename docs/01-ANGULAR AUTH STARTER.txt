@@ -1,0 +1,34 @@
+1️⃣ RUN THESE ANGULAR CLI COMMANDS FIRST
+cd frontend-web
+npm install
+
+This installs:
+1.	Angular core dependencies
+2.	HttpClient
+3.	FormsModule
+4.	Compiler
+5.	Everything needed to run
+
+Generate required structure:
+ng g s services/auth          # Auth API service
+ng g interceptor interceptors/auth
+ng g guard guards/auth
+
+ng g c pages/register
+ng g c pages/login
+ng g c pages/profile
+ng g c pages/update-profile
+
+2️⃣ Set Base URL in Angular Environment
+👉 File: src/environments/environment.ts
+export const environment = {
+  production: false,
+
+  // IMPORTANT: Update this with every new ngrok URL
+  baseUrl: "https://YOUR_NGROK_URL.ngrok-free.app/api/v1/auth"
+
+  
+};
+
+
+

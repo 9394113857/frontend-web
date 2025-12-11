@@ -1,0 +1,9 @@
+<div class="container">
+  <h2>Edit Product</h2>
+
+  <input placeholder="Name" [(ngModel)]="form.name" />
+  <input type="number" placeholder="Price" [(ngModel)]="form.price" />
+  <input placeholder="Description" [(ngModel)]="form.description" />
+
+  <button (click)="update()">Update</button>
+</div>
