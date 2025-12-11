@@ -5,10 +5,11 @@
 
   <ul>
     <li *ngFor="let p of products">
-      {{ p.name }} – ₹{{ p.price }}
+      <strong>{{ p.name }}</strong> — ₹{{ p.price }}
 
       <button (click)="editProduct(p.id)">Edit</button>
       <button (click)="deleteProduct(p.id)">Delete</button>
     </li>
   </ul>
+
 </div>

@@ -1,0 +1,13 @@
+nav a {
+  text-decoration: none;
+  color: white;
+  margin-right: 20px;
+}
+
+nav button {
+  cursor: pointer;
+}
+
+nav {
+  font-family: Arial, sans-serif;
+}

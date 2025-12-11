@@ -1,0 +1,14 @@
+<nav *ngIf="ls.getItem('token')"
+     style="background:#222; padding:10px; color:white; display:flex; justify-content:space-between;">
+
+  <div>
+    <a routerLink="/products" style="margin-right:20px; color:white;">Products</a>
+    <a routerLink="/profile" style="margin-right:20px; color:white;">Profile</a>
+  </div>
+
+  <button (click)="logout()" 
+          style="color:white; background:red; border:none; padding:5px 10px;">
+    Logout
+  </button>
+
+</nav>

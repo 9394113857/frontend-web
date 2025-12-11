@@ -18,15 +18,20 @@ export class LoginComponent {
   login() {
     this.auth.login(this.form).subscribe({
       next: (res: any) => {
-
-        // Save token in browser
         localStorage.setItem("token", res.access_token);
-
         alert("Login successful!");
-
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/products']);
       },
-      error: err => alert(err.error.message)
+
+      // 🔥 FIXED ERROR BLOCK
+      error: (err) => {
+        const msg =
+          err.error?.message ||
+          err.error?.error ||
+          "Login failed. Please try again.";
+
+        alert(msg);
+      }
     });
   }
 }

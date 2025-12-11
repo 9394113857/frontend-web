@@ -1,11 +1,10 @@
 /*************************************************************
  *  APP MODULE — ROOT MODULE OF THE ANGULAR APPLICATION
  *
- *  This file is the HEART of the Angular app.
- *  It registers:
- *   ✔ Components (pages/screens)
+ *  Registers:
+ *   ✔ Components (pages)
  *   ✔ Global services
- *   ✔ HTTP interceptors
+ *   ✔ HTTP interceptor (JWT)
  *   ✔ Routing module
  *************************************************************/
 
@@ -25,8 +24,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 /*************************************************************
- * PAGE COMPONENT IMPORTS
- * (Must be declared before use in routing)
+ * AUTH MODULE COMPONENTS
  *************************************************************/
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -34,44 +32,56 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
 
 /*************************************************************
- * PRODUCT SERVICE COMPONENT PAGES
+ * PRODUCT MODULE COMPONENTS
  *************************************************************/
 import { ProductsComponent } from './pages/products/products.component';
 import { CreateProductComponent } from './pages/create-product/create-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 
 /*************************************************************
- * AUTH INTERCEPTOR (Adds Authorization: Bearer <token>)
+ * NAVBAR COMPONENT
+ *************************************************************/
+import { NavbarComponent } from './components/navbar/navbar.component';
+
+/*************************************************************
+ * AUTH INTERCEPTOR (Attaches Bearer Token Automatically)
  *************************************************************/
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   /***********************************************************
-   * DECLARATIONS — all components belonging to this module.
+   * DECLARATIONS — All components used in the application.
    ***********************************************************/
   declarations: [
     AppComponent,
+
+    // Auth
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
     UpdateProfileComponent,
+
+    // Products
     ProductsComponent,
     CreateProductComponent,
-    EditProductComponent
+    EditProductComponent,
+
+    // Navbar
+    NavbarComponent
   ],
 
   /***********************************************************
-   * IMPORTS — supporting Angular modules for functionality.
+   * IMPORTS — Angular modules that enable app features.
    ***********************************************************/
   imports: [
-    BrowserModule,        // Required for browser apps
-    AppRoutingModule,     // Routing between pages
-    HttpClientModule,     // API calls
-    FormsModule           // ngModel support
+    BrowserModule,        // Mandatory for browser-based apps
+    AppRoutingModule,     // Handles route navigation
+    HttpClientModule,     // Enables HTTP calls
+    FormsModule           // Enables ngModel + forms
   ],
 
   /***********************************************************
-   * PROVIDERS — global services & interceptors.
+   * PROVIDERS — Global services & HTTP interceptor.
    ***********************************************************/
   providers: [
     {
@@ -82,7 +92,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
   ],
 
   /***********************************************************
-   * BOOTSTRAP — starting point of Angular app.
+   * BOOTSTRAP — Starting point of the Angular application.
    ***********************************************************/
   bootstrap: [AppComponent]
 })

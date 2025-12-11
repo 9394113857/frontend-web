@@ -19,20 +19,23 @@ export class ProductsComponent implements OnInit {
   loadProducts() {
     this.productService.getAll().subscribe({
       next: (res: any) => this.products = res,
-      error: (err) => alert(err.error.message)
-    });
-  }
-
-  deleteProduct(id: number) {
-    if (!confirm("Are you sure?")) return;
-
-    this.productService.delete(id).subscribe(() => {
-      alert("Product deleted");
-      this.loadProducts();
+      error: (err) => alert(err.error?.message || "Failed to load products")
     });
   }
 
   editProduct(id: number) {
     this.router.navigate(['/products/edit', id]);
+  }
+
+  deleteProduct(id: number) {
+    if (!confirm("Are you sure?")) return;
+
+    this.productService.delete(id).subscribe({
+      next: () => {
+        alert("Product deleted");
+        this.loadProducts();
+      },
+      error: err => alert(err.error?.message || "Delete failed")
+    });
   }
 }
