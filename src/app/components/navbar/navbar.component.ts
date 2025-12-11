@@ -4,11 +4,12 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
-  templateUrl: './navbar.component.html'
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
 
-  public ls = localStorage; // Expose localStorage to HTML
+  public ls = localStorage; // expose localStorage to template
 
   constructor(private auth: AuthService, private router: Router) {}
 

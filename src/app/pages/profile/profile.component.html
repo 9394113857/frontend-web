@@ -1,8 +1,76 @@
-<div class="auth-box">
-  <h2>Your Profile</h2>
+<div class="container my-4">
 
-  <p><b>User ID:</b> {{ user.user_id }}</p>
+  <!-- Success message -->
+  <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
 
-  <button routerLink="/update-profile">Update Profile</button>
-  <button (click)="logout()">Logout</button>
+  <!-- Error message -->
+  <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+
+  <div class="row">
+    
+    <!-- LEFT SIDE: Profile details / edit -->
+    <div class="col-md-8 mb-3">
+      <div class="card shadow-sm">
+        <div class="card-body">
+
+          <h3 class="mb-3">My Profile</h3>
+
+          <!-- Spinner -->
+          <div *ngIf="loading" class="text-center my-4">
+            <div class="spinner-border text-primary"></div>
+          </div>
+
+          <!-- VIEW MODE -->
+          <div *ngIf="!loading && !editing && profile">
+            <p><strong>Name:</strong> {{ profile.name }}</p>
+            <p><strong>Email:</strong> {{ profile.email }}</p>
+            <p><strong>Joined:</strong> {{ profile.created_at || '-' }}</p>
+
+            <button class="btn btn-primary me-2" (click)="enableEdit()">Edit Profile</button>
+            <button class="btn btn-secondary" routerLink="/products">My Products</button>
+          </div>
+
+          <!-- EDIT MODE -->
+          <form *ngIf="editing" (ngSubmit)="save()">
+
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input class="form-control" [(ngModel)]="model.name" name="name" required />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input class="form-control" [(ngModel)]="model.email" name="email" type="email" required />
+            </div>
+
+            <button class="btn btn-success me-2" type="submit">Save</button>
+            <button class="btn btn-outline-secondary" type="button" (click)="cancelEdit()">Cancel</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE: Account summary -->
+    <div class="col-md-4">
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Account Summary</h5>
+          <hr>
+          <p><strong>Email:</strong> {{ profile?.email || '-' }}</p>
+          <p><strong>Name:</strong> {{ profile?.name || '-' }}</p>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div class="list-group shadow-sm">
+        <a class="list-group-item list-group-item-action" routerLink="/products">Products</a>
+        <a class="list-group-item list-group-item-action" routerLink="/products/create">Create Product</a>
+        <a class="list-group-item list-group-item-action text-danger" (click)="auth.logout(); router.navigate(['/login'])">
+          Logout
+        </a>
+      </div>
+    </div>
+
+  </div>
 </div>

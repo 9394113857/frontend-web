@@ -1,40 +1,68 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.component.html'
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
 
-  user: any = {};
+  profile: any = null;
+  model: any = {};
+  loading = false;
+  editing = false;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  successMsg = '';
+  errorMsg = '';
+
+  // constructor(private auth: AuthService, private router: Router) {}
+  constructor(public auth: AuthService, public router: Router) {}
+
 
   ngOnInit() {
-    this.auth.getProfile().subscribe({
-      next: (res: any) => this.user = res,
-      error: () => this.router.navigate(['/login'])
+    this.loadProfile();
+  }
+
+  loadProfile() {
+    this.loading = true;
+
+    this.auth.profile().subscribe({
+      next: (res: any) => {
+        this.profile = res;
+        this.model = { ...res };
+        this.loading = false;
+      },
+      error: (err) => {
+        this.errorMsg = err?.error?.message || 'Failed to load profile';
+        this.loading = false;
+      }
     });
   }
 
-  logout() {
-    // Call backend logout to revoke token
-    this.auth.logout().subscribe({
-      next: () => {
-        // Remove token from browser
-        localStorage.removeItem("token");
+  enableEdit() {
+    this.editing = true;
+  }
 
-        alert("Logged out successfully!");
+  cancelEdit() {
+    this.editing = false;
+    this.model = { ...this.profile };
+  }
 
-        // Redirect to login page
-        this.router.navigate(['/login']);
+  save() {
+    this.successMsg = '';
+    this.errorMsg = '';
+
+    this.auth.updateProfile(this.model).subscribe({
+      next: (res: any) => {
+        this.successMsg = "Profile updated successfully!";
+        this.editing = false;
+        this.loadProfile();
+        setTimeout(() => this.successMsg = '', 2500);
       },
-      error: () => {
-        // Even if backend fails, still remove token
-        localStorage.removeItem("token");
-        this.router.navigate(['/login']);
+      error: (err) => {
+        this.errorMsg = err?.error?.message || 'Update failed';
       }
     });
   }

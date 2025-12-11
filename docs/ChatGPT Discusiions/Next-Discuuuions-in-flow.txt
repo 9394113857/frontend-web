@@ -8,3 +8,12 @@
 
 
 Add Angular navbar based on login status
+
+
+
+1️⃣ Product View Page (/products/:id/view) → full page
+2️⃣ Upload image feature
+3️⃣ Pagination (page 1, 2, 3...)
+4️⃣ Search + filter
+5️⃣ Category dropdown
+6️⃣ Admin dashboard style UI
