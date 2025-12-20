@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { Product } from '../models/product';
 
 @Injectable({
@@ -8,12 +8,16 @@ import { Product } from '../models/product';
 })
 export class ProductService {
 
-  private baseUrl = "http://127.0.0.1:5002/api/v1/products";
+  private baseUrl = environment.productUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAll() {
-    return this.http.get<Product[]>(`${this.baseUrl}/`);
+    return this.http.get<Product[]>(`${this.baseUrl}/all`);
+  }
+
+  getOne(id: number) {
+    return this.http.get<Product>(`${this.baseUrl}/${id}`);
   }
 
   create(data: Product) {
@@ -27,9 +31,4 @@ export class ProductService {
   delete(id: number) {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
-
-  getOne(id: number) {
-    return this.http.get<Product>(`${this.baseUrl}/${id}`);
-  }
 }
-

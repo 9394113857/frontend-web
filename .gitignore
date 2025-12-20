@@ -1,5 +1,5 @@
 # ===============================
-# Angular / Node / Typescript Gitignore
+# Angular / Node / TypeScript
 # ===============================
 
 # Angular build outputs
@@ -24,20 +24,34 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Environment files (do NOT commit secrets)
-src/environments/environment.ts
-src/environments/environment.prod.ts
+# ===============================
+# Environment files
+# ===============================
+# ❌ Do NOT ignore environment files anymore
+# (So Angular works after git clone)
 
+# src/environments/environment.ts
+# src/environments/environment.prod.ts
+
+# ===============================
 # OS generated
+# ===============================
 Thumbs.db
 
-# Compiled output
+# ===============================
+# Compiled output (OPTIONAL)
+# ===============================
+# If you are building via CI/CD, keep these ignored
 *.js
 *.js.map
 
+# ===============================
 # Temporary files
+# ===============================
 *.temp
 *.tmp
 
-# Allow Docs
+# ===============================
+# Docs allowed
+# ===============================
 !docs/
